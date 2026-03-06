@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lumière Beauty Studio — Hull's Premier Beauty Destination</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #F9F5EE;
+    --sand: #EDE5D8;
+    --taupe: #C9B8A2;
+    --mocha: #8C6E57;
+    --espresso: #2C1F14;
+    --sage: #8A9E8C;
+    --blush: #E8C4B8;
+    --gold: #C9A96E;
+    --white: #FFFFFF;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--ivory);
+    color: var(--espresso);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--mocha);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    transition: transform 0.2s, background 0.2s;
+    transform: translate(-50%, -50%);
+  }
+
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--mocha);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.12s ease, width 0.3s, height 0.3s, opacity 0.3s;
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 5rem;
+    mix-blend-mode: normal;
+    transition: background 0.4s, padding 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(249, 245, 238, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 1.25rem 5rem;
+    border-bottom: 1px solid rgba(201,184,162,0.2);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--espresso);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+  }
+
+  .logo span {
+    font-style: italic;
+    color: var(--mocha);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--espresso);
+    text-decoration: none;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0; right: 0;
+    height: 1px;
+    background: var(--mocha);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+
+  .nav-links a:hover { color: var(--mocha); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-book {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--espresso);
+    padding: 0.75rem 1.75rem;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+
+  .nav-book:hover { background: var(--mocha); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--sand);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10rem 5rem 5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    right: -60px;
+    top: 0; bottom: 0;
+    width: 120px;
+    background: var(--sand);
+    clip-path: ellipse(60px 50% at 0% 50%);
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--mocha);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: fadeUp 1s ease both;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 3rem;
+    height: 1px;
+    background: var(--mocha);
+    display: block;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--espresso);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 1s 0.2s ease both;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--mocha);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--mocha);
+    line-height: 1.8;
+    max-width: 400px;
+    margin-bottom: 3rem;
+    animation: fadeUp 1s 0.4s ease both;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    animation: fadeUp 1s 0.6s ease both;
+  }
+
+  .btn-dark {
+    background: var(--espresso);
+    color: var(--ivory);
+    padding: 1rem 2.25rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .btn-dark:hover { background: var(--mocha); transform: translateY(-2px); }
+
+  .btn-light {
+    background: transparent;
+    color: var(--espresso);
+    padding: 1rem 2.25rem;
+    border: 1px solid var(--taupe);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+
+  .btn-light:hover { border-color: var(--mocha); color: var(--mocha); transform: translateY(-2px); }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-image-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #D4B8A0 0%, #C9A882 30%, #B8906A 60%, #8C6E57 100%);
+  }
+
+  .hero-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .hero-badge {
+    position: absolute;
+    bottom: 3rem;
+    left: 3rem;
+    background: var(--ivory);
+    padding: 1.5rem 2rem;
+    animation: fadeUp 1s 0.8s ease both;
+  }
+
+  .hero-badge-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--mocha);
+    font-weight: 300;
+    display: block;
+    line-height: 1;
+  }
+
+  .hero-badge-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    margin-top: 0.3rem;
+    display: block;
+  }
+
+  .hero-tag {
+    position: absolute;
+    top: 8rem;
+    right: 3rem;
+    writing-mode: vertical-rl;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    animation: fadeIn 2s ease both;
+  }
+
+  /* MARQUEE */
+  .marquee-wrapper {
+    background: var(--espresso);
+    padding: 1rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee-track {
+    display: inline-flex;
+    animation: marquee 25s linear infinite;
+  }
+
+  .marquee-item {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(249,245,238,0.5);
+    padding: 0 3rem;
+  }
+
+  .marquee-dot {
+    color: var(--gold);
+    margin: 0 1rem;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ABOUT */
+  #about {
+    padding: 8rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-left {
+    position: relative;
+  }
+
+  .about-image-main {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, var(--sand) 0%, var(--taupe) 50%, var(--mocha) 100%);
+    position: relative;
+  }
+
+  .about-image-accent {
+    position: absolute;
+    bottom: -2rem;
+    right: -2rem;
+    width: 55%;
+    aspect-ratio: 1;
+    background: var(--sage);
+    opacity: 0.4;
+    z-index: -1;
+  }
+
+  .about-years {
+    position: absolute;
+    top: 2rem;
+    right: -3rem;
+    background: var(--espresso);
+    color: var(--ivory);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .about-years span {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+
+  .about-years small {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-top: 0.5rem;
+    display: block;
+  }
+
+  .section-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--mocha);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    width: 2.5rem;
+    height: 1px;
+    background: var(--mocha);
+    display: block;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--espresso);
+    margin-bottom: 1.5rem;
+  }
+
+  h2 em { font-style: italic; color: var(--mocha); }
+
+  .body-text {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--mocha);
+    line-height: 1.9;
+    margin-bottom: 2rem;
+  }
+
+  .about-signature {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    color: var(--mocha);
+    opacity: 0.7;
+    margin-top: 1rem;
+  }
+
+  /* SERVICES */
+  #services {
+    background: var(--espresso);
+    padding: 8rem 5rem;
+  }
+
+  #services .section-eyebrow { color: var(--gold); }
+  #services .section-eyebrow::before { background: var(--gold); }
+  #services h2 { color: var(--ivory); }
+  #services h2 em { color: var(--gold); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(201,184,162,0.15);
+    margin-top: 4rem;
+  }
+
+  .service-item {
+    background: var(--espresso);
+    padding: 3rem 2.5rem;
+    border: 1px solid rgba(201,184,162,0.1);
+    transition: background 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-item::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    height: 0;
+    background: linear-gradient(to top, rgba(201,169,110,0.08), transparent);
+    transition: height 0.4s;
+  }
+
+  .service-item:hover::before { height: 100%; }
+
+  .service-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: rgba(201,169,110,0.15);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    display: block;
+    transition: color 0.3s;
+  }
+
+  .service-item:hover .service-num { color: rgba(201,169,110,0.3); }
+
+  .service-item h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--ivory);
+    margin-bottom: 0.75rem;
+  }
+
+  .service-item p {
+    font-size: 0.83rem;
+    color: rgba(249,245,238,0.45);
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-price {
+    font-size: 0.8rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .service-price::before {
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background: var(--gold);
+    display: block;
+  }
+
+  /* GALLERY */
+  #gallery {
+    padding: 8rem 5rem;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .gallery-item {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .gallery-item:first-child {
+    grid-row: 1 / 3;
+  }
+
+  .gallery-img {
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+    transition: transform 0.6s ease;
+  }
+
+  .gallery-item:first-child .gallery-img { min-height: 460px; }
+
+  .gallery-img-inner {
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+  }
+
+  .g1 { background: linear-gradient(135deg, #C9B8A2, #8A6E57); }
+  .g2 { background: linear-gradient(160deg, #8A9E8C, #6B7D6D); }
+  .g3 { background: linear-gradient(135deg, #E8C4B8, #C9A882); }
+  .g4 { background: linear-gradient(160deg, #B8906A, #8C6E57); }
+  .g5 { background: linear-gradient(135deg, #EDE5D8, #C9B8A2); }
+
+  .gallery-item:hover .gallery-img { transform: scale(1.05); }
+
+  .gallery-label {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    background: rgba(44,31,20,0.7);
+    backdrop-filter: blur(8px);
+    color: var(--ivory);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  .gallery-item:hover .gallery-label { opacity: 1; transform: translateY(0); }
+
+  /* TEAM */
+  #team {
+    background: var(--sand);
+    padding: 8rem 5rem;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .team-card {
+    text-align: center;
+  }
+
+  .team-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .team-avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  .ta1 { background: linear-gradient(135deg, #C9B8A2, #8C6E57); }
+  .ta2 { background: linear-gradient(135deg, #8A9E8C, #5A7A5C); }
+  .ta3 { background: linear-gradient(135deg, #E8C4B8, #C9856A); }
+
+  .team-initial {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: rgba(255,255,255,0.6);
+    font-weight: 300;
+  }
+
+  .team-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--espresso);
+    margin-bottom: 0.3rem;
+  }
+
+  .team-role {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mocha);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .team-bio {
+    font-size: 0.83rem;
+    color: var(--mocha);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* TESTIMONIALS */
+  #testimonials {
+    padding: 8rem 5rem;
+    background: var(--ivory);
+  }
+
+  .testimonials-track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .testimonial-card {
+    padding: 2.5rem;
+    border: 1px solid var(--sand);
+    position: relative;
+  }
+
+  .testimonial-card::before {
+    content: '\201C';
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem;
+    color: var(--sand);
+    position: absolute;
+    top: -1rem;
+    left: 1.5rem;
+    line-height: 1;
+  }
+
+  .testimonial-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--espresso);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .testimonial-stars {
+    color: var(--gold);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .testimonial-author {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mocha);
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--espresso);
+    padding: 8rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  #contact h2 { color: var(--ivory); }
+  #contact h2 em { color: var(--gold); }
+  #contact .section-eyebrow { color: var(--gold); }
+  #contact .section-eyebrow::before { background: var(--gold); }
+  #contact .body-text { color: rgba(249,245,238,0.55); }
+
+  .contact-details {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .contact-icon {
+    font-size: 1.1rem;
+    width: 24px;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .contact-item-text {
+    font-size: 0.88rem;
+    color: rgba(249,245,238,0.65);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .contact-item-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.2rem;
+    display: block;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .contact-input {
+    background: rgba(249,245,238,0.06);
+    border: 1px solid rgba(249,245,238,0.12);
+    padding: 0.9rem 1.1rem;
+    color: var(--ivory);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 300;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .contact-input::placeholder { color: rgba(249,245,238,0.3); }
+  .contact-input:focus { border-color: var(--gold); }
+
+  textarea.contact-input { resize: none; height: 120px; }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--espresso);
+    padding: 1rem 2rem;
+    border: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    align-self: flex-start;
+  }
+
+  .btn-gold:hover { background: var(--taupe); transform: translateY(-2px); }
+
+  .form-success {
+    display: none;
+    background: rgba(138,158,140,0.2);
+    border: 1px solid rgba(138,158,140,0.4);
+    color: #a8c4aa;
+    padding: 1rem;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #1A0F08;
+    padding: 4rem 5rem 2rem;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(201,184,162,0.1);
+    margin-bottom: 2rem;
+  }
+
+  .footer-brand .logo { color: var(--ivory); font-size: 1.3rem; }
+  .footer-brand p {
+    font-size: 0.82rem;
+    color: rgba(249,245,238,0.35);
+    line-height: 1.8;
+    margin-top: 1rem;
+    font-weight: 300;
+    max-width: 280px;
+  }
+
+  .footer-col h4 {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.7rem; }
+  .footer-col ul li a {
+    font-size: 0.82rem;
+    color: rgba(249,245,238,0.4);
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: 300;
+  }
+  .footer-col ul li a:hover { color: var(--ivory); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.72rem;
+    color: rgba(249,245,238,0.2);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-credit a {
+    color: var(--gold);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+
+  .footer-credit a:hover { opacity: 1; }
+
+  /* DEMO BANNER */
+  .demo-banner {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--espresso);
+    color: var(--ivory);
+    padding: 0.85rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    z-index: 200;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    border-top: 2px solid var(--gold);
+  }
+
+  .demo-banner strong { color: var(--gold); }
+
+  .demo-banner a {
+    background: var(--gold);
+    color: var(--espresso);
+    padding: 0.4rem 1.25rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s;
+  }
+
+  .demo-banner a:hover { background: var(--taupe); }
+
+  .demo-banner-close {
+    position: absolute;
+    right: 1.5rem;
+    cursor: pointer;
+    opacity: 0.5;
+    font-size: 1rem;
+    transition: opacity 0.3s;
+    background: none;
+    border: none;
+    color: var(--ivory);
+  }
+
+  .demo-banner-close:hover { opacity: 1; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    nav { padding: 1.5rem 2rem; }
+    nav.scrolled { padding: 1rem 2rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 8rem 2rem 4rem; }
+    .hero-left::after { display: none; }
+    .hero-right { height: 50vw; }
+    #about { grid-template-columns: 1fr; padding: 4rem 2rem; gap: 3rem; }
+    .about-years { right: 0; }
+    #services { padding: 4rem 2rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    #gallery { padding: 4rem 2rem; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item:first-child { grid-row: auto; }
+    #team { padding: 4rem 2rem; }
+    .team-grid { grid-template-columns: 1fr; }
+    #testimonials { padding: 4rem 2rem; }
+    .testimonials-track { grid-template-columns: 1fr; }
+    #contact { grid-template-columns: 1fr; padding: 4rem 2rem; gap: 3rem; }
+    footer { padding: 3rem 2rem 2rem; }
+    .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo">Lumière <span>Beauty</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-book">Enquire Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Hull's Premier Beauty Studio</div>
+    <h1>Where beauty<br>becomes <em>art.</em></h1>
+    <p class="hero-sub">Luxury beauty treatments crafted with precision, passion and the finest products — in the heart of Hull.</p>
+    <div class="hero-cta">
+      <a href="#services" class="btn-dark">Explore Services</a>
+      <a href="#contact" class="btn-light">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-image-bg"></div>
+    <div class="hero-image-overlay"></div>
+    <div class="hero-badge">
+      <span class="hero-badge-num">8+</span>
+      <span class="hero-badge-text">Years of excellence</span>
+    </div>
+    <div class="hero-tag">Est. 2016 · Hull</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrapper">
+  <div class="marquee-track">
+    <span class="marquee-item">Lash Lifts <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Facials <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Brow Sculpting <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Nail Art <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Waxing <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Skin Treatments <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Massages <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Makeup <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Lash Lifts <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Facials <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Brow Sculpting <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Nail Art <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Waxing <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Skin Treatments <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Massages <span class="marquee-dot">✦</span></span>
+    <span class="marquee-item">Makeup <span class="marquee-dot">✦</span></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left reveal">
+    <div class="about-image-main g1">
+      <div style="height:100%; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:4rem; color:rgba(255,255,255,0.2); font-style:italic;">L</div>
+    </div>
+    <div class="about-image-accent"></div>
+    <div class="about-years">
+      <span>8+</span>
+      <small>Years serving Hull</small>
+    </div>
+  </div>
+  <div class="about-right reveal">
+    <div class="section-eyebrow">Our story</div>
+    <h2>Beauty that goes<br>beyond the <em>surface.</em></h2>
+    <p class="body-text">Lumière Beauty Studio was born from a simple belief — that every person deserves to feel extraordinary. Founded in 2016 in the heart of Hull, we've spent eight years perfecting our craft, building a sanctuary where expert technique meets genuine warmth.</p>
+    <p class="body-text">Our team of award-winning therapists bring passion and precision to every treatment. Whether you're here for a quick brow tidy or a full pamper day, you'll leave feeling like the best version of yourself.</p>
+    <div class="about-signature">— Isabelle Laurent, Founder</div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-eyebrow">What we offer</div>
+  <h2>Our <em>signature</em> treatments</h2>
+  <div class="services-grid reveal">
+    <div class="service-item">
+      <span class="service-num">01</span>
+      <h3>Lash & Brow</h3>
+      <p>From lash lifts and tints to precision brow sculpting — we frame your face to perfection with techniques tailored to your natural features.</p>
+      <div class="service-price">From £35</div>
+    </div>
+    <div class="service-item">
+      <span class="service-num">02</span>
+      <h3>Facial Treatments</h3>
+      <p>Luxury skincare rituals using premium products, from deep cleansing facials to anti-ageing treatments that leave your skin luminous and refreshed.</p>
+      <div class="service-price">From £55</div>
+    </div>
+    <div class="service-item">
+      <span class="service-num">03</span>
+      <h3>Nail Artistry</h3>
+      <p>Manicures, pedicures and intricate nail art — from classic French tips to bold seasonal designs crafted by our specialist nail technicians.</p>
+      <div class="service-price">From £30</div>
+    </div>
+    <div class="service-item">
+      <span class="service-num">04</span>
+      <h3>Waxing & Threading</h3>
+      <p>Smooth, long-lasting results with minimal discomfort. We use the finest waxes and threading techniques for impeccably clean results.</p>
+      <div class="service-price">From £12</div>
+    </div>
+    <div class="service-item">
+      <span class="service-num">05</span>
+      <h3>Massage & Wellbeing</h3>
+      <p>Unwind with our range of therapeutic massages — from Swedish relaxation to deep tissue sports massage and hot stone treatments.</p>
+      <div class="service-price">From £50</div>
+    </div>
+    <div class="service-item">
+      <span class="service-num">06</span>
+      <h3>Bridal & Occasions</h3>
+      <p>Look your absolute best for life's most special moments. Full bridal packages including trials, wedding day and bridal party bookings.</p>
+      <div class="service-price">From £120</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-eyebrow">Our work</div>
+  <h2>A glimpse into<br>our <em>studio.</em></h2>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item">
+      <div class="gallery-img g1 gallery-img-inner"></div>
+      <div class="gallery-label">Studio Interior</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img g2 gallery-img-inner"></div>
+      <div class="gallery-label">Lash Treatment</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img g3 gallery-img-inner"></div>
+      <div class="gallery-label">Nail Artistry</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img g4 gallery-img-inner"></div>
+      <div class="gallery-label">Facial Ritual</div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img g5 gallery-img-inner"></div>
+      <div class="gallery-label">Brow Sculpting</div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-eyebrow">The team</div>
+  <h2>Meet the <em>artists</em><br>behind your look.</h2>
+  <div class="team-grid reveal">
+    <div class="team-card">
+      <div class="team-avatar ta1">
+        <div class="team-initial">I</div>
+      </div>
+      <h3>Isabelle Laurent</h3>
+      <span class="team-role">Founder & Lead Therapist</span>
+      <p class="team-bio">With 12 years of experience and training across London and Paris, Isabelle brings world-class technique to every client she sees.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar ta2">
+        <div class="team-initial">S</div>
+      </div>
+      <h3>Sophie Marchetti</h3>
+      <span class="team-role">Senior Nail Technician</span>
+      <p class="team-bio">Sophie's intricate nail artistry has been featured in local publications. She specialises in gel extensions and seasonal nail design.</p>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar ta3">
+        <div class="team-initial">A</div>
+      </div>
+      <h3>Amara Diouf</h3>
+      <span class="team-role">Lash & Brow Specialist</span>
+      <p class="team-bio">Amara is our resident lash and brow expert, known for her precision technique and ability to tailor every look to the individual.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-eyebrow">Kind words</div>
+  <h2>What our clients<br><em>say.</em></h2>
+  <div class="testimonials-track reveal">
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Lumière is simply the best beauty studio in Hull. The atmosphere is so relaxing and the results are always incredible. I wouldn't go anywhere else."</p>
+      <div class="testimonial-author">— Charlotte B., Hull</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Isabelle did my bridal makeup and every single one of my guests asked who did it. Absolute perfection. I felt like a completely different person."</p>
+      <div class="testimonial-author">— Rebecca M., Beverley</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Sophie's nail art is genuinely next level. She listened to exactly what I wanted and delivered something even better than I imagined."</p>
+      <div class="testimonial-author">— Jade T., Hull</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-eyebrow">Get in touch</div>
+    <h2>We'd love to<br><em>hear from you.</em></h2>
+    <p class="body-text">Ready to book or have a question about our services? Fill in the form and we'll be in touch within 24 hours.</p>
+    <div class="contact-details">
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div class="contact-item-text">
+          <span class="contact-item-label">Location</span>
+          24 Prospect Street, Hull, HU2 8PJ
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div class="contact-item-text">
+          <span class="contact-item-label">Phone</span>
+          01482 000 000
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-item-text">
+          <span class="contact-item-label">Email</span>
+          hello@lumierebeauty.co.uk
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div class="contact-item-text">
+          <span class="contact-item-label">Hours</span>
+          Mon–Sat: 9am–7pm · Sun: 10am–5pm
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="reveal">
+    <form class="contact-form" onsubmit="submitContact(event)">
+      <div class="form-group">
+        <input class="contact-input" type="text" placeholder="Your name" required />
+        <input class="contact-input" type="email" placeholder="Email address" required />
+      </div>
+      <input class="contact-input" type="text" placeholder="Subject" />
+      <textarea class="contact-input" placeholder="Tell us about your enquiry..."></textarea>
+      <button type="submit" class="btn-gold">Send Enquiry</button>
+      <div class="form-success" id="form-success">
+        ✓ Thank you! We'll be in touch within 24 hours.
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo">Lumière <span>Beauty</span></a>
+      <p>Hull's premier beauty studio — where expert technique meets genuine warmth. Treatments crafted with care, every time.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Lash & Brow</a></li>
+        <li><a href="#services">Facial Treatments</a></li>
+        <li><a href="#services">Nail Artistry</a></li>
+        <li><a href="#services">Massage & Wellbeing</a></li>
+        <li><a href="#services">Bridal Packages</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Studio</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#team">Our Team</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#">Gift Vouchers</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Lumière Beauty Studio. All rights reserved.</span>
+    <span class="footer-credit">Website by <a href="https://aurasystemsdesign.co.uk" target="_blank">Aura Systems Design</a></span>
+  </div>
+</footer>
+
+<!-- DEMO BANNER -->
+<div class="demo-banner" id="demoBanner">
+  <span>🎯 <strong>Demo Site</strong> — This is the <strong>Presence Package</strong> by Aura Systems Design</span>
+  <a href="https://aurasystemsdesign.co.uk" target="_blank">Get This For Your Business</a>
+  <button class="demo-banner-close" onclick="document.getElementById('demoBanner').style.display='none'">✕</button>
+</div>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) *.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2)';
+      ring.style.width = '60px';
+      ring.style.height = '60px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+    });
+  });
+
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Contact form
+  function submitContact(e) {
+    e.preventDefault();
+    document.getElementById('form-success').style.display = 'block';
+    e.target.querySelector('button').textContent = 'Sent ✓';
+    e.target.querySelector('button').disabled = true;
+  }
+</script>
+</body>
+</html>
